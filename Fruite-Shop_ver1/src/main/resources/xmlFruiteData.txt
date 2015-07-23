@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_31" class="java.beans.XMLDecoder">
+ <object class="pl.damian.main.Fruite">
+  <void property="language">
+   <string>pl</string>
+  </void>
+  <void property="name">
+   <string>Jabłko</string>
+  </void>
+  <void property="pictureAdress">
+   <string>apple.jpg</string>
+  </void>
+  <void property="prise">
+   <long>3</long>
+  </void>
+ </object>
+ <object class="pl.damian.main.Fruite">
+  <void property="language">
+   <string>pl</string>
+  </void>
+  <void property="name">
+   <string>Gruszka</string>
+  </void>
+  <void property="pictureAdress">
+   <string>pear.jpg</string>
+  </void>
+  <void property="prise">
+   <long>2</long>
+  </void>
+ </object>
+</java>
