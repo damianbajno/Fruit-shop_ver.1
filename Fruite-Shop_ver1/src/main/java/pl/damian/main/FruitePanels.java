@@ -94,6 +94,7 @@ public class FruitePanels{
 		FruitXML fruitXML=FruitXML.getInstance();
 		fruitXML.readFruitesFromXMLFile();
 		arrayFruite = fruitXML.getArrayFruite();
+		System.out.println(arrayFruite.get(0).getName());
 
 	}
 	

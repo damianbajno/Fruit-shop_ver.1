@@ -7,11 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import pl.damian.main.Fruite;
 
 public class FruitXML {
-	private static String fileDirection = "/home/damian/git/Fruite-shop/Fruite-Shop/resources/xmlFruiteData.txt";
+	private static String fileDirection = "/home/damian/git/Fruite-Shop_ver.1/Fruite-Shop_ver1/src/main/resources/xmlFruiteData.txt";
 	private ArrayList<Fruite> arrayFruite;
 	private static FruitXML fruiteXML;
 	
@@ -60,7 +62,9 @@ public class FruitXML {
 	}
 	
 	public ArrayList<Fruite> getArrayFruite() {
-		return arrayFruite;
+		if (arrayFruite==null)
+			System.out.println("lista pusta");
+			return arrayFruite;
 	}
 
 	
