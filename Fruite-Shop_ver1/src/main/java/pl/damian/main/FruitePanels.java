@@ -65,12 +65,12 @@ public class FruitePanels {
 		nameLabel.setText(fruite.getName());
 		priceLabel.setText(String.valueOf(fruite.getPrise()));
 		
-		ImageIcon fruiteImageIcon = getFruitePictureImageIcon(fruite);
+		ImageIcon fruiteImageIcon = getScaledFruitePicture(fruite);
 		pictureLabel.setIcon(fruiteImageIcon);
 		nameLabel.setText(fruite.getName());
 	}
 
-	public ImageIcon getFruitePictureImageIcon(Fruite fruite) {
+	public ImageIcon getScaledFruitePicture(Fruite fruite) {
 		URL pictureURL = ClassLoader.getSystemResource(fruite
 				.getPictureAdress());
 		String pathToPictureFile = pictureURL.getPath();
