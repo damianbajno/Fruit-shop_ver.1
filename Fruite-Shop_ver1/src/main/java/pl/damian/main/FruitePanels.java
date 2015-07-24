@@ -1,5 +1,6 @@
 package pl.damian.main;
 
+import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.io.FileInputStream;
@@ -18,65 +19,55 @@ import javax.swing.JTextField;
 import pl.damian.xml.FruitXML;
 
 public class FruitePanels {
-	private JPanel fruitePanel;
+	private JPanel fruitePanel = new JPanel();;
 	private JLabel nameLabel = new JLabel();
 	private JLabel priceLabel = new JLabel();
 
 	private JLabel pictureLabel = new JLabel();
 
 	private JLabel amountLabel = new JLabel();
-	private JTextField amountTextFild = new JTextField(10);
+	private JTextField amountTextFild = new JTextField(5);
 	private JLabel unitLabel = new JLabel();
 
 	private StringBuilder language = new StringBuilder();
 	private Properties fruiteLanguageProperties;
-	private Fruites fruites = new Fruites();
+	private Fruite fruite;
 
-	public FruitePanels(String language) {
+	public FruitePanels(String language, Fruite fruite) {
 		this.language.append(language);
-		fruites.setLanguage(this.language);
+		this.fruite = fruite;
 		propertise();
 	}
 
 	public void setLayout() {
 		fruitePanel.setLayout(new GridBagLayout());
-		fruitePanel.add(nameLabel, new GBC(0, 0).setWeight(2, 1));
-		fruitePanel.add(priceLabel, new GBC(2, 0));
-		fruitePanel.add(pictureLabel, new GBC(0, 1).setWeight(3, 3));
+		fruitePanel.add(nameLabel, new GBC(0, 0).setSpan(1, 1));
+		fruitePanel.add(priceLabel, new GBC(2, 0).setAnchor(GBC.CENTER));
+		fruitePanel.add(pictureLabel, new GBC(0, 1).setSpan(3, 3));
 		fruitePanel.add(amountLabel, new GBC(0, 4));
 		fruitePanel.add(amountTextFild, new GBC(1, 4));
 		fruitePanel.add(unitLabel, new GBC(2, 4));
 	}
 
-	public void createPanel() {
-		fruitePanel = new JPanel();
+	public JPanel getPanel() {
 		setLayout();
-		if (fruites.hasNext()) {
+		if (fruite != null) {
 			setValuesInJLabels();
 		}
+		return fruitePanel;
 	}
 
 	public void setValuesInJLabels() {
-		Fruite fruite = fruites.next();
 
 		amountLabel.setText(fruiteLanguageProperties.getProperty("amount"));
 		unitLabel.setText(fruiteLanguageProperties.getProperty("unite"));
 
 		nameLabel.setText(fruite.getName());
 		priceLabel.setText(String.valueOf(fruite.getPrise()));
-
+		
 		ImageIcon fruiteImageIcon = getFruitePictureImageIcon(fruite);
 		pictureLabel.setIcon(fruiteImageIcon);
 		nameLabel.setText(fruite.getName());
-	}
-
-	public JPanel getPanel()
-	{
-		return fruitePanel;
-	}
-	
-	public int manyPanels() {
-		return fruites.size();
 	}
 
 	public ImageIcon getFruitePictureImageIcon(Fruite fruite) {

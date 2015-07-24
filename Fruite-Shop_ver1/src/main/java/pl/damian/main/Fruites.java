@@ -21,14 +21,14 @@ public class Fruites {
 
 	
 	public Fruite next() {
-		if (fruiteNumberInList < arrayFruite.size()) {
+		if (fruiteNumberInList < arrayFruite.size()-1) {
 			fruiteNumberInList++;
 			return arrayFruite.get(fruiteNumberInList);
-		} else return new Fruite();
+		} else return null;
 	}
-		
+	
 	public boolean hasNext() {
-		if (fruiteNumberInList < arrayFruite.size()) {
+		if (fruiteNumberInList < arrayFruite.size()-1) {
 			return true;
 		} else
 			return false;
@@ -42,7 +42,5 @@ public class Fruites {
 		FruitXML fruitXML = FruitXML.getInstance();
 		fruitXML.readFruitesFromXMLFile();
 		arrayFruite = fruitXML.getArrayFruite();
-		System.out.println(arrayFruite.get(0).getName());
-
 	}
 }

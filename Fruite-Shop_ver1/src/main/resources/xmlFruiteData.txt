@@ -28,4 +28,18 @@
    <long>2</long>
   </void>
  </object>
+ <object class="pl.damian.main.Fruite">
+  <void property="language">
+   <string>pl</string>
+  </void>
+  <void property="name">
+   <string>Mandarynka</string>
+  </void>
+  <void property="pictureAdress">
+   <string>mandarin.jpeg</string>
+  </void>
+  <void property="prise">
+   <long>3</long>
+  </void>
+ </object>
 </java>
