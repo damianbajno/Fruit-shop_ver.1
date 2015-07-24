@@ -13,7 +13,7 @@ import java.util.Collections;
 import pl.damian.main.Fruite;
 
 public class FruitXML {
-	private static String fileDirection = "/home/damian/git/Fruite-Shop_ver.1/Fruite-Shop_ver1/src/main/resources/xmlFruiteData.txt";
+	private static String fileDirection = System.getProperty("user.dir")+"/src/main/resources/xmlFruiteData.txt";
 	private ArrayList<Fruite> arrayFruite;
 	private static FruitXML fruiteXML;
 	
@@ -41,6 +41,7 @@ public class FruitXML {
 	}
 
 	public void readFruitesFromXMLFile() {
+		
 		arrayFruite = new ArrayList<Fruite>();
 
 		try {
