@@ -47,10 +47,8 @@ public class ShopFrame extends JFrame implements ItemListener {
 
 	public void addComboBoxToChooseLanguage() {
 		String[] languageTypes = { "PL", "EN" };
-
 		JComboBox<String> chooseLanguage = new JComboBox<String>(languageTypes);
 		chooseLanguage.addItemListener(this);
-		
 		add(chooseLanguage, BorderLayout.NORTH);
 	}
 	

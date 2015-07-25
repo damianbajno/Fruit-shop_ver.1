@@ -10,6 +10,13 @@ public class Fruite {
 	public Fruite() {
 		super();
 	}
+	
+	public Fruite(String name, long prise, String pictureAdress) {
+		super();
+		this.name = name;
+		this.prise = prise;
+		this.pictureAdress = pictureAdress;
+	}
 
 	public Fruite(String language, String name, long prise, String pictureAdress) {
 		super();
