@@ -1,7 +1,6 @@
 package pl.damian.fruite;
 
 import java.util.ArrayList;
-import java.util.Properties;
 
 import pl.damian.xml.FruitXML;
 

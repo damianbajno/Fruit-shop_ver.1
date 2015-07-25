@@ -1,14 +1,10 @@
 package pl.damian.fruite;
 
-import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -17,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pl.damian.main.GBC;
-import pl.damian.xml.FruitXML;
 
 public class FruitePanel {
 	private JPanel fruitePanel = new JPanel();;
@@ -30,14 +25,14 @@ public class FruitePanel {
 	private JTextField amountTextFild = new JTextField(5);
 	private JLabel unitLabel = new JLabel();
 
-	private StringBuilder language = new StringBuilder();
+	private String language = new String();
 	private Properties fruiteLanguageProperties;
 	private Fruite fruite;
 
 	public FruitePanel(String language, Fruite fruite) {
-		this.language.append(language);
+		this.language=language;
 		this.fruite = fruite;
-		propertise();
+		loadPropertise();
 	}
 
 	public void setLayout() {
@@ -58,6 +53,13 @@ public class FruitePanel {
 		return fruitePanel;
 	}
 
+	public void changeLanguage(String language)
+	{
+		this.language=language;
+		loadPropertise();
+		setValuesInJLabels();
+	}
+	
 	public void setValuesInJLabels() {
 
 		amountLabel.setText(fruiteLanguageProperties.getProperty("amount"));
@@ -82,10 +84,9 @@ public class FruitePanel {
 		return icon;
 	}
 
-	public void propertise() {
+	public void loadPropertise() {
 		InputStream languageResourse = ClassLoader
-				.getSystemResourceAsStream(language.append(".properties")
-						.toString());
+				.getSystemResourceAsStream(language+".properties");
 		fruiteLanguageProperties = new Properties();
 		try {
 			fruiteLanguageProperties.load(languageResourse);

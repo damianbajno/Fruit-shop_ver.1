@@ -2,24 +2,25 @@ package pl.damian.main;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import pl.damian.fruite.FruitePanel;
 import pl.damian.fruite.Fruites;
 
-public class ShopFrame extends JFrame implements ActionListener {
+public class ShopFrame extends JFrame implements ItemListener {
 
 	final String frameTitle = "Fruite Shop";
 	JPanel fruitePanels = new JPanel();
 	private Fruites fruites = new Fruites();
 	private String language = "EN";
-
+	private ArrayList<FruitePanel> fruitePanelList=new ArrayList<FruitePanel>();
+	
 	public ShopFrame() {
 		addFruitePanels();
 		addComboBoxToChooseLanguage();
@@ -31,6 +32,7 @@ public class ShopFrame extends JFrame implements ActionListener {
 		fruitePanels.setLayout(new GridLayout(2, 2));
 		while (fruites.hasNext()) {
 			FruitePanel fruitePanel = new FruitePanel(language, fruites.next());
+			fruitePanelList.add(fruitePanel);
 			fruitePanels.add(fruitePanel.getPanel());
 		}
 		add(fruitePanels, BorderLayout.CENTER);
@@ -47,16 +49,18 @@ public class ShopFrame extends JFrame implements ActionListener {
 		String[] languageTypes = { "PL", "EN" };
 
 		JComboBox<String> chooseLanguage = new JComboBox<String>(languageTypes);
-		chooseLanguage.addActionListener(this);
+		chooseLanguage.addItemListener(this);
+		
 		add(chooseLanguage, BorderLayout.NORTH);
 	}
-
+	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		JComboBox<String> chooseLanguage = (JComboBox<String>) e.getSource();
-		language = chooseLanguage.getSelectedItem().toString();
-		addFruitePanels();
-		SwingUtilities.updateComponentTreeUI(this);
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange()==ItemEvent.SELECTED) {
+			language = (String) e.getItem().toString();
+			fruitePanelList.forEach(f -> f.changeLanguage(language));
+			repaint();
+		}
+		
 	}
-
 }
