@@ -1,34 +1,62 @@
 package pl.damian.main;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-public class ShopFrame extends JFrame {
+import pl.damian.fruite.FruitePanel;
+import pl.damian.fruite.Fruites;
+
+public class ShopFrame extends JFrame implements ActionListener {
 
 	final String frameTitle = "Fruite Shop";
-	private Fruites fruites=new Fruites();
-	
+	JPanel fruitePanels = new JPanel();
+	private Fruites fruites = new Fruites();
+	private String language = "EN";
+
 	public ShopFrame() {
-		setLayout(new GridLayout(1, 2));
 		addFruitePanels();
+		addComboBoxToChooseLanguage();
 		setDefaulteSettings();
+
 	}
 
 	public void addFruitePanels() {
+		fruitePanels.setLayout(new GridLayout(2, 2));
 		while (fruites.hasNext()) {
-			FruitePanels fruitePanels=new FruitePanels("EN", fruites.next());
-			add(fruitePanels.getPanel());
+			FruitePanel fruitePanel = new FruitePanel(language, fruites.next());
+			fruitePanels.add(fruitePanel.getPanel());
 		}
+		add(fruitePanels, BorderLayout.CENTER);
 	}
-	
+
 	public void setDefaulteSettings() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(frameTitle);
 		setVisible(true);
 		pack();
 	}
+
+	public void addComboBoxToChooseLanguage() {
+		String[] languageTypes = { "PL", "EN" };
+
+		JComboBox<String> chooseLanguage = new JComboBox<String>(languageTypes);
+		chooseLanguage.addActionListener(this);
+		add(chooseLanguage, BorderLayout.NORTH);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JComboBox<String> chooseLanguage = (JComboBox<String>) e.getSource();
+		language = chooseLanguage.getSelectedItem().toString();
+		addFruitePanels();
+		SwingUtilities.updateComponentTreeUI(this);
+	}
+
 }

@@ -1,4 +1,4 @@
-package pl.damian.main;
+package pl.damian.fruite;
 
 import java.awt.Container;
 import java.awt.GridBagLayout;
@@ -16,9 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import pl.damian.main.GBC;
 import pl.damian.xml.FruitXML;
 
-public class FruitePanels {
+public class FruitePanel {
 	private JPanel fruitePanel = new JPanel();;
 	private JLabel nameLabel = new JLabel();
 	private JLabel priceLabel = new JLabel();
@@ -33,7 +34,7 @@ public class FruitePanels {
 	private Properties fruiteLanguageProperties;
 	private Fruite fruite;
 
-	public FruitePanels(String language, Fruite fruite) {
+	public FruitePanel(String language, Fruite fruite) {
 		this.language.append(language);
 		this.fruite = fruite;
 		propertise();

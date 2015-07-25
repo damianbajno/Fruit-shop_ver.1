@@ -1,4 +1,4 @@
-package pl.damian.main;
+package pl.damian.fruite;
 
 public class Fruite {
 

@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import pl.damian.main.Fruite;
+import pl.damian.fruite.Fruite;
 
 public class mainXML {
 

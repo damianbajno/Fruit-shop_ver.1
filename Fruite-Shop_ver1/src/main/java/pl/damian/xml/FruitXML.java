@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import pl.damian.main.Fruite;
+import pl.damian.fruite.Fruite;
 
 public class FruitXML {
 	private static String fileDirection = System.getProperty("user.dir")+"/src/main/resources/xmlFruiteData.txt";

@@ -1,4 +1,4 @@
-package pl.damian.main;
+package pl.damian.fruite;
 
 import java.util.ArrayList;
 import java.util.Properties;
