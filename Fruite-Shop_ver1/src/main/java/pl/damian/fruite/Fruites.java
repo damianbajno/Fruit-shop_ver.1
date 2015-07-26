@@ -1,6 +1,7 @@
 package pl.damian.fruite;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -8,16 +9,16 @@ import pl.damian.xml.FruitXML;
 
 public class Fruites {
 
-	private ArrayList<Fruite> arrayFruite;
+	private ArrayList<Fruite> arrayFruite=new ArrayList<Fruite>();
 	private int fruiteNumberInList = -1;
-	private StringBuilder language = new StringBuilder();
+	private String language = new String();
 
-	public void setLanguage(StringBuilder language) {
+	public void setLanguage(String language) {
 		this.language = language;
 	}
 
 	public Fruites() {
-		loadValuesXMl();
+		loadValuesBoundle();
 	}
 
 	public Fruite next() {
@@ -39,12 +40,20 @@ public class Fruites {
 		return arrayFruite.size();
 	}
 
-	public void LoadValuesBoundle() {
+	public void loadValuesBoundle() {
 
-		Locale locale = new Locale("pl");
+		Locale locale = new Locale(language.toString());
 		ResourceBundle resourceBundle = ResourceBundle.getBundle(
-				"ResourceBundle.FruiteBoundle", locale);
-
+				"pl.damian.resourceBundle.FruiteBoundle", locale);
+		Enumeration<String> keys = resourceBundle.getKeys();
+		while (keys.hasMoreElements()) {
+			Object object = resourceBundle.getObject(keys.nextElement());
+			if (object instanceof Fruite) {
+				Fruite fruite = (Fruite) object;
+				System.out.println(fruite.toString());
+				arrayFruite.add(fruite);
+			}
+		}
 	}
 
 	public void loadValuesXMl() {

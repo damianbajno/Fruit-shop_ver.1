@@ -1,4 +1,4 @@
-package ResourceBundle;
+package pl.damian.resourceBundle;
 
 import java.util.ListResourceBundle;
 

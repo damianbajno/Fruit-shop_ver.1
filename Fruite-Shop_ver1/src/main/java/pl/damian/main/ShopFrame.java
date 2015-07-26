@@ -56,6 +56,8 @@ public class ShopFrame extends JFrame implements ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange()==ItemEvent.SELECTED) {
 			language = (String) e.getItem().toString();
+			fruites.setLanguage(language);
+			fruites.loadValuesBoundle();
 			fruitePanelList.forEach(f -> f.changeLanguage(language));
 			repaint();
 		}

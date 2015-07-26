@@ -2,7 +2,7 @@ package pl.damian.fruite;
 
 public class Fruite {
 
-	private String language;
+//	private String language;
 	private String name;
 	private long prise;
 	private String pictureAdress;
@@ -20,19 +20,19 @@ public class Fruite {
 
 	public Fruite(String language, String name, long prise, String pictureAdress) {
 		super();
-		this.language = language;
+//		this.language = language;
 		this.name = name;
 		this.prise = prise;
 		this.pictureAdress = pictureAdress;
 	}
 
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
+//	public String getLanguage() {
+//		return language;
+//	}
+//
+//	public void setLanguage(String language) {
+//		this.language = language;
+//	}
 
 	public String getName() {
 		return name;
@@ -60,7 +60,7 @@ public class Fruite {
 
 	@Override
 	public String toString() {
-		return "Fruite [language=" + language + ", name=" + name + ", prise="
+		return "Fruite [ "+"name=" + name + ", prise="
 				+ prise + ", pictureAdress=" + pictureAdress + "]";
 	}
 

@@ -57,6 +57,7 @@ public class FruitePanel {
 	{
 		this.language=language;
 		loadPropertise();
+		
 		setValuesInJLabels();
 	}
 	
