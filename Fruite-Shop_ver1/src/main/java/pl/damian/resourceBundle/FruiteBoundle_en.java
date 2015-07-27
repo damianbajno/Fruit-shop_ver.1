@@ -12,9 +12,9 @@ public class FruiteBoundle_en extends ListResourceBundle {
 	}
 
 	private Object[][] context = {
-			{ "apple", new Fruite("Apple", 3, "apple.jpg") },
-			{ "pear", new Fruite("Pear", 2, "pear.jpg") },
-			{ "mandarin", new Fruite("Mandarin", 3, "mandarin.jpeg") },
+			{ "1", new Fruite("Apple", 3, "apple.jpg") },
+			{ "2", new Fruite("Pear", 2, "pear.jpg") },
+			{ "3", new Fruite("Mandarin", 3, "mandarin.jpeg") },
 			{ "amount", "Ilo\u015B\u0107" }, { "unite", "Waga" } };
 
 }

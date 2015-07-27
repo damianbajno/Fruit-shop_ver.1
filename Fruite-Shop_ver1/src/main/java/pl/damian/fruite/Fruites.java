@@ -50,7 +50,7 @@ public class Fruites {
 			Object object = resourceBundle.getObject(keys.nextElement());
 			if (object instanceof Fruite) {
 				Fruite fruite = (Fruite) object;
-				System.out.println(fruite.toString());
+//				System.out.println(fruite.toString());
 				arrayFruite.add(fruite);
 			}
 		}

@@ -16,9 +16,9 @@ public class FruiteBoundle_pl extends ListResourceBundle {
 	}
 
 	private Object[][] context = {
-			{ "apple", new Fruite("Jabłko", 3, "apple.jpg") },
-			{ "pear", new Fruite("Gruszka", 2, "pear.jpg") },
-			{ "mandarin", new Fruite("Mandarynka", 3, "mandarin.jpeg") },
+			{ "1", new Fruite("Jabłko", 3, "apple.jpg") },
+			{ "2", new Fruite("Gruszka", 2, "pear.jpg") },
+			{ "3", new Fruite("Mandarynka", 3, "mandarin.jpeg") },
 			{ "amount", "Ilo\u015B\u0107" }, { "unite", "Waga" } };
 
 }

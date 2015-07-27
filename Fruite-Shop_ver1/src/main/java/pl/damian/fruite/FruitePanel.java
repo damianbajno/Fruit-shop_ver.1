@@ -5,7 +5,9 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -25,14 +27,18 @@ public class FruitePanel {
 	private JTextField amountTextFild = new JTextField(5);
 	private JLabel unitLabel = new JLabel();
 
-	private String language = new String();
+	private static String language = new String();
 	private Properties fruiteLanguageProperties;
 	private Fruite fruite;
 
-	public FruitePanel(String language, Fruite fruite) {
-		this.language=language;
-		this.fruite = fruite;
-		loadPropertise();
+	private static ResourceBundle resourceBundle;
+	static Integer fruiteNumber = 1;
+
+	public FruitePanel(String language) {
+		this.language = language;
+		loadResourceBoundle();
+		setLayout();
+		setValuesInJLabels();
 	}
 
 	public void setLayout() {
@@ -53,25 +59,30 @@ public class FruitePanel {
 		return fruitePanel;
 	}
 
-	public void changeLanguage(String language)
-	{
-		this.language=language;
-		loadPropertise();
-		
+	public void changeLanguage(String language) {
+		this.language = language;
+		loadResourceBoundle();
+
 		setValuesInJLabels();
+		System.out.println(nameLabel.getText());
 	}
-	
+
 	public void setValuesInJLabels() {
 
-		amountLabel.setText(fruiteLanguageProperties.getProperty("amount"));
-		unitLabel.setText(fruiteLanguageProperties.getProperty("unite"));
+		Fruite fruite = (Fruite) resourceBundle.getObject(fruiteNumber
+				.toString());
+		amountLabel.setText(resourceBundle.getString("amount"));
+		unitLabel.setText(resourceBundle.getString("unite"));
 
 		nameLabel.setText(fruite.getName());
 		priceLabel.setText(String.valueOf(fruite.getPrise()));
-		
+
 		ImageIcon fruiteImageIcon = getScaledFruitePicture(fruite);
 		pictureLabel.setIcon(fruiteImageIcon);
 		nameLabel.setText(fruite.getName());
+		fruiteNumber++;
+		if (fruiteNumber == 4)
+			fruiteNumber = 1;
 	}
 
 	public ImageIcon getScaledFruitePicture(Fruite fruite) {
@@ -85,9 +96,25 @@ public class FruitePanel {
 		return icon;
 	}
 
+	public static void loadResourceBoundle() {
+		Locale locale = new Locale(language.toString());
+		System.out.println("jezyk=  "+locale.getLanguage());
+		resourceBundle = ResourceBundle.getBundle(
+				"pl.damian.resourceBundle.FruiteBoundle", locale);
+		final Object object = resourceBundle.getObject("1");
+		Fruite fruite = (Fruite) object;
+		System.out.println(fruite.getName());
+
+	}
+
+	public static int size() {
+		loadResourceBoundle();
+		return resourceBundle.keySet().size() - 2;
+	}
+
 	public void loadPropertise() {
 		InputStream languageResourse = ClassLoader
-				.getSystemResourceAsStream(language+".properties");
+				.getSystemResourceAsStream(language + ".properties");
 		fruiteLanguageProperties = new Properties();
 		try {
 			fruiteLanguageProperties.load(languageResourse);
