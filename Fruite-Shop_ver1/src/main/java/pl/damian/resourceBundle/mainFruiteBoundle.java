@@ -11,11 +11,12 @@ import pl.damian.fruite.Fruite;
 public class mainFruiteBoundle {
 
 	public static void main(String[] args) {
-		Locale locale = new Locale("en");
+		Locale locale = new Locale("pl");
 		ResourceBundle resourceBundle = ResourceBundle.getBundle(
 				"pl.damian.resourceBundle.FruiteBoundle", locale);
-		Fruite fruite = (Fruite) resourceBundle.getObject("apple");
-		System.out.println(fruite.toString());
+		Fruite[] fruites = (Fruite[]) resourceBundle.getObject("fruites");
+		
+		System.out.println(fruites[0].toString());
 		
 		
 	}

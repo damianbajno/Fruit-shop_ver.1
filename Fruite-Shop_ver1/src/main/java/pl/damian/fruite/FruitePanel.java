@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pl.damian.main.GBC;
+import pl.damian.resourceBundle.LanguageTranslator;
 
 public class FruitePanel {
 	private JPanel fruitePanel = new JPanel();;
@@ -27,16 +28,14 @@ public class FruitePanel {
 	private JTextField amountTextFild = new JTextField(5);
 	private JLabel unitLabel = new JLabel();
 
-	private static String language = new String();
-	private Properties fruiteLanguageProperties;
+	private static Locale language=new Locale("EN");
 	private Fruite fruite;
 
-	private static ResourceBundle resourceBundle;
-	static Integer fruiteNumber = 1;
-
-	public FruitePanel(String language) {
-		this.language = language;
-		loadResourceBoundle();
+	private static LanguageTranslator languageTranslator=LanguageTranslator.getInstance(language);
+	
+	public FruitePanel() {
+		languageTranslator=LanguageTranslator.getInstance(language);
+		fruite=languageTranslator.nextFruite();
 		setLayout();
 		setValuesInJLabels();
 	}
@@ -52,27 +51,20 @@ public class FruitePanel {
 	}
 
 	public JPanel getPanel() {
-		setLayout();
-		if (fruite != null) {
-			setValuesInJLabels();
-		}
 		return fruitePanel;
 	}
 
-	public void changeLanguage(String language) {
+	public void changeLanguage(Locale language) {
 		this.language = language;
-		loadResourceBoundle();
-
+		languageTranslator=LanguageTranslator.getInstance(language);
+		fruite = languageTranslator.nextFruite();
 		setValuesInJLabels();
-		System.out.println(nameLabel.getText());
 	}
 
 	public void setValuesInJLabels() {
-
-		Fruite fruite = (Fruite) resourceBundle.getObject(fruiteNumber
-				.toString());
-		amountLabel.setText(resourceBundle.getString("amount"));
-		unitLabel.setText(resourceBundle.getString("unite"));
+		
+		amountLabel.setText(languageTranslator.getString("amount"));
+		unitLabel.setText(languageTranslator.getString("unite"));
 
 		nameLabel.setText(fruite.getName());
 		priceLabel.setText(String.valueOf(fruite.getPrise()));
@@ -80,9 +72,6 @@ public class FruitePanel {
 		ImageIcon fruiteImageIcon = getScaledFruitePicture(fruite);
 		pictureLabel.setIcon(fruiteImageIcon);
 		nameLabel.setText(fruite.getName());
-		fruiteNumber++;
-		if (fruiteNumber == 4)
-			fruiteNumber = 1;
 	}
 
 	public ImageIcon getScaledFruitePicture(Fruite fruite) {
@@ -96,31 +85,21 @@ public class FruitePanel {
 		return icon;
 	}
 
-	public static void loadResourceBoundle() {
-		Locale locale = new Locale(language.toString());
-		System.out.println("jezyk=  "+locale.getLanguage());
-		resourceBundle = ResourceBundle.getBundle(
-				"pl.damian.resourceBundle.FruiteBoundle", locale);
-		final Object object = resourceBundle.getObject("1");
-		Fruite fruite = (Fruite) object;
-		System.out.println(fruite.getName());
-
-	}
-
+		
 	public static int size() {
-		loadResourceBoundle();
-		return resourceBundle.keySet().size() - 2;
+		return languageTranslator.arrayFruiteSize();
 	}
 
-	public void loadPropertise() {
-		InputStream languageResourse = ClassLoader
-				.getSystemResourceAsStream(language + ".properties");
-		fruiteLanguageProperties = new Properties();
-		try {
-			fruiteLanguageProperties.load(languageResourse);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public String getName(){
+		return nameLabel.getText();
+	}
+	
+	public long getPrice(){
+		return fruite.getPrise();
+	}
+	
+	public String getAmount(){
+		return amountTextFild.getText();
 	}
 
 }
