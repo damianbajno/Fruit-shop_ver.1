@@ -9,7 +9,7 @@ public class Fruite {
 	public Fruite() {
 		super();
 	}
-	
+
 	public Fruite(String name, long prise, String pictureAdress) {
 		super();
 		this.name = name;
@@ -49,9 +49,20 @@ public class Fruite {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((pictureAdress == null) ? 0 : pictureAdress.hashCode());
+		result = prime * result + (int) (prise ^ (prise >>> 32));
+		return result;
+	}
+
+	@Override
 	public String toString() {
-		return "Fruite [ "+"name=" + name + ", prise="
-				+ prise + ", pictureAdress=" + pictureAdress + "]";
+		return "Fruite [ " + "name=" + name + ", prise=" + prise
+				+ ", pictureAdress=" + pictureAdress + "]";
 	}
 
 }

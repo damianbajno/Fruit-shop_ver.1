@@ -20,6 +20,9 @@ public class FruiteBoundle extends ListResourceBundle {
 			new Fruite("Mandarin", 3, "mandarin.jpeg") };
 
 	private Object[][] context = { { "fruites", fruites },
-			{ "amount", "Ilo\u015B\u0107" }, { "unite", "Waga" } };
+			{ "amount", "Ilo\u015B\u0107" }, { "unite", "Waga" },
+			{ "calculation", "Calculate" }, 
+			{ "Price", "Price" }
+	};
 
 }

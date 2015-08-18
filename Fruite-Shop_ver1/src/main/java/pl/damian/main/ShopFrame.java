@@ -1,7 +1,8 @@
 package pl.damian.main;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -11,30 +12,34 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-import pl.damian.fruite.Fruite;
 import pl.damian.fruite.FruitePanel;
-import pl.damian.fruite.Fruites;
+import pl.damian.resourceBundle.Fruites;
 
-public class ShopFrame extends JFrame implements ItemListener {
+public class ShopFrame extends JFrame implements ItemListener, ActionListener {
 
 	final String frameTitle = "Fruite Shop";
-	Locale[] languageTypes = {new Locale("EN"), new Locale("PL")};
-	private Locale language; 
-	private JPanel fruitePanels;
-	private ArrayList<FruitePanel> fruitePanelList=new ArrayList<FruitePanel>();
-	
+	Locale[] languageTypes = { new Locale("PL"), new Locale("EN") };
+	private Locale locale = languageTypes[0];
+	private ArrayList<FruitePanel> fruitePanelList = new ArrayList<FruitePanel>();
+	private Fruites fruites;
+	private JTextArea recipeTextField;
+	JButton calculationButton;
+
 	public ShopFrame() {
 		addFruitePanels();
 		addComboBoxToChooseLanguage();
-
+		addCalculationButtonAndText();
 		setDefaulteSettings();
 
 	}
 
 	public void addFruitePanels() {
-		fruitePanels = new JPanel();
-		for (int i = 0; i < FruitePanel.size(); i++) {
+		JPanel fruitePanels = new JPanel();
+		for (int i = 0; i < FruitePanel.numberUniqueFruites(); i++) {
 			FruitePanel fruitePanel = new FruitePanel();
 			fruitePanelList.add(fruitePanel);
 			fruitePanels.add(fruitePanel.getPanel());
@@ -44,13 +49,20 @@ public class ShopFrame extends JFrame implements ItemListener {
 
 	public void addCalculationButtonAndText() {
 		JPanel calculationPanel = new JPanel();
-		JButton calculationButton = new JButton();
+		calculationButton = new JButton("Oblicz");
+		recipeTextField = new JTextArea(fruitePanelList.size() + 1, 20);
+
+		calculationButton.addActionListener(this);
+
+		calculationPanel.add(calculationButton);
+		calculationPanel.add(recipeTextField);
 
 		add(calculationPanel, BorderLayout.SOUTH);
 	}
 
 	public void addComboBoxToChooseLanguage() {
 		JComboBox<Locale> chooseLanguage = new JComboBox<Locale>(languageTypes);
+		// chooseLanguage.setSelectedItem(languageTypes[1]);
 		chooseLanguage.addItemListener(this);
 		add(chooseLanguage, BorderLayout.NORTH);
 	}
@@ -65,10 +77,29 @@ public class ShopFrame extends JFrame implements ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
-			language = (Locale) e.getItem();
-			fruitePanelList.forEach(f -> f.changeLanguage(language));
+			locale = (Locale) e.getItem();
+			changeLanguage(locale);
 			repaint();
 		}
 	}
-		
+
+	private void changeLanguage(Locale locale) {
+		FruitePanel.changeFruiteLanguage(locale);
+		fruitePanelList.forEach(e -> {
+			e.changeLanguageInJLabels();
+			;
+		});
+		calculationButton.setText(Fruites.getString("calculation"));
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		recipeTextField.setText("");
+		StringBuilder recepie = new StringBuilder();
+		for (int i = 0; i < fruitePanelList.size(); i++) {
+			recepie.append(fruitePanelList.get(i).getRecipeValue());
+		}
+		recipeTextField.setText(recepie.toString());
+	}
+
 }

@@ -2,12 +2,8 @@ package pl.damian.fruite;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pl.damian.main.GBC;
-import pl.damian.resourceBundle.LanguageTranslator;
+import pl.damian.resourceBundle.Fruites;
 
 public class FruitePanel {
 	private JPanel fruitePanel = new JPanel();;
@@ -25,28 +21,27 @@ public class FruitePanel {
 	private JLabel pictureLabel = new JLabel();
 
 	private JLabel amountLabel = new JLabel();
-	private JTextField amountTextFild = new JTextField(5);
+	private JTextField amountTextField = new JTextField(5);
 	private JLabel unitLabel = new JLabel();
 
-	private static Locale language=new Locale("EN");
+	private static Locale locale = new Locale("EN");
+	private static Fruites fruites = new Fruites();
 	private Fruite fruite;
+	private static int fruiteNumber = 0;
 
-	private static LanguageTranslator languageTranslator=LanguageTranslator.getInstance(language);
-	
 	public FruitePanel() {
-		languageTranslator=LanguageTranslator.getInstance(language);
-		fruite=languageTranslator.nextFruite();
 		setLayout();
 		setValuesInJLabels();
+		fruiteNumber++;
 	}
 
 	public void setLayout() {
 		fruitePanel.setLayout(new GridBagLayout());
-		fruitePanel.add(nameLabel, new GBC(0, 0).setSpan(1, 1));
-		fruitePanel.add(priceLabel, new GBC(2, 0).setAnchor(GBC.CENTER));
+		fruitePanel.add(nameLabel, new GBC(0, 0).setAnchor(GBC.EAST).setSpan(1, 1));
+		fruitePanel.add(priceLabel, new GBC(1, 0).setAnchor(GBC.EAST).setSpan(2, 1));
 		fruitePanel.add(pictureLabel, new GBC(0, 1).setSpan(3, 3));
 		fruitePanel.add(amountLabel, new GBC(0, 4));
-		fruitePanel.add(amountTextFild, new GBC(1, 4));
+		fruitePanel.add(amountTextField, new GBC(1, 4));
 		fruitePanel.add(unitLabel, new GBC(2, 4));
 	}
 
@@ -54,20 +49,30 @@ public class FruitePanel {
 		return fruitePanel;
 	}
 
-	public void changeLanguage(Locale language) {
-		this.language = language;
-		languageTranslator=LanguageTranslator.getInstance(language);
-		fruite = languageTranslator.nextFruite();
+	public static void changeFruiteLanguage(Locale locale) {
+		fruites.changeLanguage(locale);
+	}
+
+	public void changeLanguageInJLabels(){
+		resetFruiteNumberIfOutOfBound();
 		setValuesInJLabels();
+	}
+	
+	public void resetFruiteNumberIfOutOfBound() {
+		if (fruiteNumber < fruites.lenght()-1)
+			fruiteNumber++;
+		else {
+			fruiteNumber = 0;
+		}
 	}
 
 	public void setValuesInJLabels() {
-		
-		amountLabel.setText(languageTranslator.getString("amount"));
-		unitLabel.setText(languageTranslator.getString("unite"));
+		fruite = fruites.get(fruiteNumber);
+		amountLabel.setText(fruites.getString("amount"));
+		unitLabel.setText(fruites.getString("unite"));
 
 		nameLabel.setText(fruite.getName());
-		priceLabel.setText(String.valueOf(fruite.getPrise()));
+		priceLabel.setText(fruites.getString("Price")+"  "+String.valueOf(fruite.getPrise()));
 
 		ImageIcon fruiteImageIcon = getScaledFruitePicture(fruite);
 		pictureLabel.setIcon(fruiteImageIcon);
@@ -85,21 +90,34 @@ public class FruitePanel {
 		return icon;
 	}
 
-		
-	public static int size() {
-		return languageTranslator.arrayFruiteSize();
+	public static int numberUniqueFruites() {
+		return fruites.lenght();
 	}
 
-	public String getName(){
+	public String getName() {
 		return nameLabel.getText();
 	}
-	
-	public long getPrice(){
+
+	public long getPrice() {
 		return fruite.getPrise();
 	}
-	
-	public String getAmount(){
-		return amountTextFild.getText();
+
+	public String getAmount() {
+		return amountTextField.getText();
 	}
 
+	public String getRecipeValue()
+	{
+		if (amountTextField.getText()==" ")
+			amountTextField.setText("0");
+		return nameLabel.getText()+": "+amountTextField.getText()+"x"+fruite.getPrise()+" = "+price()+"  \n";
+		
+	}
+	
+	public double price(){
+		if (amountTextField.getText()==" ") {
+		double amount=Double.parseDouble(amountTextField.getText());
+		return amount*fruite.getPrise();
+		} else return 0;
+	}
 }
