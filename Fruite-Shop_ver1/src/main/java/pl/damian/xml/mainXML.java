@@ -1,15 +1,6 @@
 package pl.damian.xml;
 
-import java.beans.ExceptionListener;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import pl.damian.main.Fruite;
+import pl.damian.fruite.Fruite;
 
 public class mainXML {
 
@@ -19,7 +10,8 @@ public class mainXML {
 
 		Fruite[] fruites = {
 				new Fruite("pl", "Jabłko", 3,"apple.jpg"),
-				new Fruite("pl", "Gruszka", 2,"pear.jpg") };
+				new Fruite("pl", "Gruszka", 2,"pear.jpg"),
+				new Fruite("pl", "Mandarynka", 3,"mandarin.jpeg")};
 		FruitXML fruitXML=new FruitXML();
 		fruitXML.writeFruitesToXMLFile(fruites);
 		
