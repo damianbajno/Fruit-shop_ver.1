@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_31" class="java.beans.XMLDecoder">
- <object class="pl.damian.fruite.Fruite">
+ <object class="pl.damian.fruit.fruit">
   <void property="language">
    <string>pl</string>
   </void>
@@ -14,7 +14,7 @@
    <long>3</long>
   </void>
  </object>
- <object class="pl.damian.fruite.Fruite">
+ <object class="pl.damian.fruit.fruit">
   <void property="language">
    <string>pl</string>
   </void>
@@ -28,7 +28,7 @@
    <long>2</long>
   </void>
  </object>
- <object class="pl.damian.fruite.Fruite">
+ <object class="pl.damian.fruit.fruit">
   <void property="language">
    <string>pl</string>
   </void>

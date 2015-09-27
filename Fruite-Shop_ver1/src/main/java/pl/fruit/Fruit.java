@@ -1,23 +1,23 @@
-package pl.damian.fruite;
+package pl.fruit;
 
-public class Fruite {
+public class Fruit {
 
 	private String name;
 	private long prise;
 	private String pictureAdress;
 
-	public Fruite() {
+	public Fruit() {
 		super();
 	}
 
-	public Fruite(String name, long prise, String pictureAdress) {
+	public Fruit(String name, long prise, String pictureAdress) {
 		super();
 		this.name = name;
 		this.prise = prise;
 		this.pictureAdress = pictureAdress;
 	}
 
-	public Fruite(String language, String name, long prise, String pictureAdress) {
+	public Fruit(String language, String name, long prise, String pictureAdress) {
 		super();
 		this.name = name;
 		this.prise = prise;
@@ -61,7 +61,7 @@ public class Fruite {
 
 	@Override
 	public String toString() {
-		return "Fruite [ " + "name=" + name + ", prise=" + prise
+		return "fruit [ " + "name=" + name + ", prise=" + prise
 				+ ", pictureAdress=" + pictureAdress + "]";
 	}
 
