@@ -1,4 +1,4 @@
-package pl.damian.main;
+package pl.main;
 
 import java.awt.GridBagConstraints;
 
