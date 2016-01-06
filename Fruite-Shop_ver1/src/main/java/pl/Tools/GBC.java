@@ -1,4 +1,4 @@
-package pl.main;
+package pl.Tools;
 
 import java.awt.GridBagConstraints;
 

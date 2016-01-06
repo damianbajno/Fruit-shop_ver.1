@@ -1,4 +1,4 @@
-package pl.main;
+package pl.frame;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -14,13 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import pl.Tools.Tools;
 import pl.fruit.FruitPanel;
 import pl.fruitResourceBundle.Fruits;
 
 public class ShopFrame extends JFrame implements ItemListener, ActionListener {
 
 	final String frameTitle = "Fruit Shop";
-	private Locale[] languageTypes = { new Locale("PL"), new Locale("EN")};
+	private Locale[] languageTypes = { new Locale("EN"), new Locale("PL") };
 	private Locale locale = languageTypes[0];
 	private ArrayList<FruitPanel> fruitPanelList = new ArrayList<FruitPanel>();
 	private JTextArea recipeTextField;
@@ -73,6 +74,9 @@ public class ShopFrame extends JFrame implements ItemListener, ActionListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
+		     
+		     	recipeTextField.setText(" ");
+		     
 			locale = (Locale) e.getItem();
 			changeLanguage(locale);
 			repaint();
@@ -89,14 +93,14 @@ public class ShopFrame extends JFrame implements ItemListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		recipeTextField.setText("");
-		Double recepieSume=0D;
+		float recepieSume=0F;
 		StringBuilder recepie = new StringBuilder();
 		for (int i = 0; i < fruitPanelList.size(); i++) {
-			FruitPanel fruit = fruitPanelList.get(i);
-			recepie.append(fruit.getRecipeValue());
-			recepieSume +=fruit.price();
+			FruitPanel fruitPanel = fruitPanelList.get(i);
+			recepie.append(fruitPanel.getRecipeValue());
+			recepieSume +=fruitPanel.price();
 		}
-		recepie.append(Fruits.getString("bill")+" = "+recepieSume );
+		recepie.append(Fruits.getString("bill")+" = "+Tools.getTwoDecimalValue(recepieSume));
 		recipeTextField.setText(recepie.toString());
 	}
 

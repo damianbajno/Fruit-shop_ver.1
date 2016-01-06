@@ -22,7 +22,7 @@ public class FruitBundle extends ListResourceBundle {
 	private Object[][] context = { { "fruits", fruits },
 			{ "amount", "Ilo\u015B\u0107" }, { "unit", "Waga" },
 			{ "calculation", "Calculate" }, 
-			{ "Price", "Price" },
+			{ "price", "price" },
 			{ "bill", "Bill" }
 	};
 

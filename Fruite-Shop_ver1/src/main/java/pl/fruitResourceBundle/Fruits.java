@@ -10,39 +10,51 @@ import pl.fruit.Fruit;
 
 public class Fruits {
 
-	private static final String RESOURCE_FRUIT_BUNDLE = "pl.fruitResourceBundle.FruitBundle";
-	private Fruit[] fruitArray;
-	private static ResourceBundle resourceBundle;
-    private	Iterator<Fruit> fruitIterator;
+     private static final String FRUITS = "fruits";
+     private static final String RESOURCE_FRUIT_BUNDLE = "pl.fruitResourceBundle.FruitBundle";
+     private Fruit[] fruitArray;
+     private static ResourceBundle resourceBundle;
+     private Iterator<Fruit> fruitIterator;
 
-	public Fruits() {
-		resourceBundle = ResourceBundle
-				.getBundle(RESOURCE_FRUIT_BUNDLE);
-		fruitArray = (Fruit[]) resourceBundle.getObject("fruits");
-	}
 
-	public void changeLanguage(Locale locale) {
-		resourceBundle = ResourceBundle.getBundle(
-				RESOURCE_FRUIT_BUNDLE, locale);
-		fruitArray = (Fruit[]) resourceBundle.getObject("fruits");
-		List<Fruit> fruitList = Arrays.asList(fruitArray);
-		fruitIterator = fruitList.iterator();
-	}
 
-	public int lenght() {
-		return fruitArray.length;
-	}
+     public Fruits() {
+	  resourceBundle = ResourceBundle.getBundle(RESOURCE_FRUIT_BUNDLE);
+	  fruitArray = (Fruit[]) resourceBundle.getObject(FRUITS);
+     }
 
-	public Fruit get(int i) {
-		return fruitArray[i];
-	}
 
-	public Fruit next() {
-		return fruitIterator.next();
-	}
 
-	public static String getString(String key) {
-		return resourceBundle.getString(key);
-	}
+     public void changeLanguage(Locale locale) {
+	  resourceBundle = ResourceBundle.getBundle(RESOURCE_FRUIT_BUNDLE,
+		    locale);
+	  fruitArray = (Fruit[]) resourceBundle.getObject(FRUITS);
+	  List<Fruit> fruitList = Arrays.asList(fruitArray);
+	  fruitIterator = fruitList.iterator();
+     }
+
+
+
+     public int lenght() {
+	  return fruitArray.length;
+     }
+
+
+
+     public Fruit get(int i) {
+	  return fruitArray[i];
+     }
+
+
+
+     public Fruit next() {
+	  return fruitIterator.next();
+     }
+
+
+
+     public static String getString(String key) {
+	  return resourceBundle.getString(key);
+     }
 
 }
